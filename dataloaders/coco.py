@@ -28,7 +28,7 @@ class CocoStuff10k(BaseDataSet):
         image_id = self.files[index]
         image_path = os.path.join(self.root, 'images', image_id + '.jpg')
         label_path = os.path.join(self.root, 'annotations', image_id + '.mat')
-        image = np.asarray(Image.open(image_path), dtype=np.float32)
+        image = np.asarray(Image.open(image_path).convert('RGB'), dtype=np.float32)
         label = sio.loadmat(label_path)['S']
         label -= 1  # unlabeled (0 -> -1)
         label[label == -1] = 255
@@ -70,7 +70,7 @@ def get_parent_class(value, dictionary):
                     yield res
 
 class COCO(BaseDataLoader):
-    def __init__(self, data_dir, batch_size, split, crop_size=None, base_size=None, scale=True, num_workers=1, partition = 'CocoStuff164k',
+    def __init__(self, data_dir, batch_size, split, crop_size=None, base_size=None, scale=True, num_workers=1, partition = 'CocoStuff10k',
                     shuffle=False, flip=False, rotate=False, blur= False, augment=False, val_split= None, return_id=False, val=False):
 
         self.MEAN = [0.43931922, 0.41310471, 0.37480941]
