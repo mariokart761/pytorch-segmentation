@@ -1,43 +1,45 @@
 {
-    "name": "PSPNet",
+    "name": "DeepLab",
     "n_gpu": 1,
     "use_synch_bn": false,
 
     "arch": {
-        "type": "PSPNet",
+        "type": "DeepLab",
         "args": {
-            "backbone": "resnet50",
+            "backbone": "resnet101",
+            "pretrained": true,
             "freeze_bn": false,
-            "freeze_backbone": false
+            "freeze_backbone": true
         }
     },
 
     "train_loader": {
-        "type": "CityScapes",
+        "type": "COCO",
         "args":{
-            "data_dir": "./data/cityscapes",
-            "batch_size": 8,
-            "base_size": 400,
+            "data_dir": "./data/cocostuff-10k-v1.1",
+            "batch_size": 4,
+            "split": "train",
             "crop_size": 380,
-            "augment": true,
-            "shuffle": true,
+            "base_size": 400,
             "scale": true,
+            "num_workers": 8,
+            "val": false,
+            "shuffle": true,
+            "augment": true,
             "flip": true,
             "rotate": true,
-            "blur": false,
-            "split": "train",
-            "num_workers": 8
+            "blur": true
         }
     },
 
     "val_loader": {
-        "type": "CityScapes",
+        "type": "COCO",
         "args":{
-            "data_dir": "./data/cityscapes",
-            "batch_size": 8,
+            "data_dir": "./data/cocostuff-10k-v1.1",
+            "batch_size": 4,
             "crop_size": 480,
             "val": true,
-            "split": "val",
+            "split": "test",
             "num_workers": 4
         }
     },
@@ -60,14 +62,14 @@
     },
 
     "trainer": {
-        "epochs": 80,
+        "epochs": 100,
         "save_dir": "saved/",
-        "save_period": 10,
+        "save_period": 1,
   
         "monitor": "max Mean_IoU",
         "early_stop": 10,
         
-        "tensorboard": true,
+        "tensorboard": false,
         "log_dir": "saved/runs",
         "log_per_iter": 20,
 
