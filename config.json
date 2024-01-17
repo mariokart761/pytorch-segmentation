@@ -17,12 +17,12 @@
         "type": "COCO",
         "args":{
             "data_dir": "./data/cocostuff-10k-v1.1",
-            "batch_size": 4,
+            "batch_size": 8,
             "split": "train",
             "crop_size": 380,
             "base_size": 400,
             "scale": true,
-            "num_workers": 8,
+            "num_workers": 4,
             "val": false,
             "shuffle": true,
             "augment": true,
@@ -36,7 +36,7 @@
         "type": "COCO",
         "args":{
             "data_dir": "./data/cocostuff-10k-v1.1",
-            "batch_size": 4,
+            "batch_size": 8,
             "crop_size": 480,
             "val": true,
             "split": "test",
