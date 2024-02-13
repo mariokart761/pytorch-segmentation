@@ -18,7 +18,7 @@ class VOCDataset(BaseDataSet):
     http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar
     """
     def __init__(self, **kwargs):
-        self.num_classes = 21
+        self.num_classes = 10
         self.palette = palette.get_voc_palette(self.num_classes)
         super(VOCDataset, self).__init__(**kwargs)
 
@@ -46,7 +46,7 @@ class VOCAugDataset(BaseDataSet):
     Image Sets: https://ucla.app.box.com/s/rd9z2xvwsfpksi7mi08i2xqrj7ab4keb/file/55053033642
     """
     def __init__(self, **kwargs):
-        self.num_classes = 21
+        self.num_classes = 10
         self.palette = palette.get_voc_palette(self.num_classes)
         super(VOCAugDataset, self).__init__(**kwargs)
 
@@ -91,7 +91,7 @@ class VOC(BaseDataLoader):
     
         if split in ["train_aug", "trainval_aug", "val_aug", "test_aug"]:
             self.dataset = VOCAugDataset(**kwargs)
-        elif split in ["train", "trainval", "val", "test"]:
+        elif split in ["train", "trainval", "val"]:
             self.dataset = VOCDataset(**kwargs)
         else: raise ValueError(f"Invalid split name {split}")
         super(VOC, self).__init__(self.dataset, batch_size, shuffle, num_workers, val_split)
