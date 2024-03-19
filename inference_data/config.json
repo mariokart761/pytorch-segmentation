@@ -1,0 +1,70 @@
+{
+    "arch": {
+        "args": {
+            "backbone": "resnet101",
+            "freeze_backbone": true,
+            "freeze_bn": false,
+            "pretrained": true
+        },
+        "type": "DeepLab"
+    },
+    "ignore_index": 255,
+    "loss": "CrossEntropyLoss2d",
+    "lr_scheduler": {
+        "args": {},
+        "type": "Poly"
+    },
+    "n_gpu": 1,
+    "name": "DeepLab",
+    "optimizer": {
+        "args": {
+            "lr": 0.01,
+            "momentum": 0.9,
+            "weight_decay": 0.0001
+        },
+        "differential_lr": true,
+        "type": "SGD"
+    },
+    "train_loader": {
+        "args": {
+            "augment": true,
+            "base_size": 400,
+            "batch_size": 8,
+            "blur": true,
+            "crop_size": 380,
+            "data_dir": "./data/FCU_Dataset",
+            "flip": true,
+            "num_workers": 4,
+            "rotate": true,
+            "scale": true,
+            "shuffle": true,
+            "split": "train",
+            "val": false
+        },
+        "type": "VOC"
+    },
+    "trainer": {
+        "early_stop": 10,
+        "epochs": 200,
+        "log_dir": "saved/runs",
+        "log_per_iter": 20,
+        "monitor": "max Mean_IoU",
+        "save_dir": "saved/",
+        "save_period": 1,
+        "tensorboard": false,
+        "val": true,
+        "val_per_epochs": 5
+    },
+    "use_synch_bn": false,
+    "val_loader": {
+        "args": {
+            "batch_size": 8,
+            "crop_size": 480,
+            "data_dir": "./data/FCU_Dataset",
+            "num_workers": 4,
+            "split": "val",
+            "val": true
+        },
+        "type": "VOC"
+    }
+}
